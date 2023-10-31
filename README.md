@@ -1,7 +1,6 @@
 # Aquaculture Simulation
 
-[One Paragraph of Project Description]
-
+This is a Continous-Time Simulation of the fluctuation of chemicals in an Aquarium system. The chemicals we keep track of in the state of our aquarium are: Ammonium, Nitrite, Nitrate, Nitrogen gas, Disolved Oxygen, pH Our goal is to predict if an aquarium configuration (Size, Temp, Lighting, Fish, Plants) will be self sufficent, require water changes / feeding or will not support life. 
 
 ## Table of Contents
 
