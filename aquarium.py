@@ -11,19 +11,24 @@
 
 # Constants
 Xmin = 0
-Xmax = (24*Math.pi)
-Ymin = -(6*Math.pi)
-Ymax = (5* Math.pi)
-Zmin = (2* Math.pi)
-Zmax = (5* Math.pow(10,-6))
+Xmax = (24*math.pi)
+Ymin = -(6*math.pi)
+Ymax = (5* math.pi)
+Zmin = (2* math.pi)
+Zmax = (5* math.pow(10,-6))
 Wishbone1 = (2 * Math.pow(10,-8))
 Wishbone2 = (3 * Math.pow(10,-6))
 V = 3628800
 
+p2 = Math.pow(10,-4)
+p3 = 0
+p4 = (2* Math.pow(10,-17))
+q1 = (1/5)
+q2 = (1/8.5)
 
 # Chemical Consentrations
 
 C1 = 0 # NH4 (Ammonia)
-C2 = 0 # O2 (Oxygen)
+C2 = 8.5 # O2 (Oxygen)
 C3 = 0 # NO2 (NitrITE)
 C4 = 0 # NO3 (NitrATE)
