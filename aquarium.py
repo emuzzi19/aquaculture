@@ -9,7 +9,7 @@
 #=====================================================================================================================================================================================================================
 # Imports 
 import numpy as np
-
+import math
 # =============================
 
 # Constants
@@ -48,11 +48,25 @@ def mu1(t):
 def mu2(t):
   result = Wishbone2*(np.arctan(T2(t))-np.arctan(tmin))
   return result
-
   
+def t0(t):
+    return(((Xmax - Xmin) / V)*t + Xmin)
+
+def t1(t):
+    return(((Ymax - Ymin) / V)*t + Ymin)
+    
+def t2(t):
+    return(((Zmax - Zmin) / V)*t + Zmin)  
 
 
 # Change of concentration of Nitrate
+
+    
+def dC2(t):
+    return p2(1-(1/5)(C2))-mu1(t)*pow(C1,2)*pow(C2,3)-mu2(t)*sqrt(C2)*C3
+  
+def dC3(t):
+    return mu1(t)*(pow(C1,2))*(pow(C2,3))-mu2(t)*math.sqrt(C2)*C3-p3*C3
 
 def dC4(t):    # Change of Nitrate concentration over time 
   dt = (Math.abs(0-t))
