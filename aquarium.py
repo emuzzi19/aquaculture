@@ -11,6 +11,8 @@
 import numpy as np
 import math
 import matplotlib.pyplot as plt
+from alive_progress import alive_bar
+#from fish.py import fish
 
 
 # Constants
@@ -24,8 +26,10 @@ Zmax = (2* math.pi)
 Wishbone = (5 * pow(10,-6))
 Wishbone1 = (2 * pow(10,-8))
 Wishbone2 = (3 * pow(10,-6))
-V = 4838400
+V = 4838400     # Period of time to run sim over before list is cleared
+numV = 1        # Amount of times period of V is simulated 
 tmin = 0
+
 
 def p1(t):
   step1 = np.arctan(t0(t))             
@@ -56,6 +60,13 @@ dC2 = [] # Array of O2 Conc
 dC3 = [] # Array of Nitrite Conc
 dC4 = [] # Array of Nitrate Conc
 dT = [] # Time array
+
+
+
+
+# Other Factors
+DO = 10
+
 
 # Define Functions
 # Mu s
@@ -104,27 +115,54 @@ def changeInNitrate(t):    # Change of Nitrate concentration over time
    
    
 
-
-# Write a plot function
-
 #======================================================================================================================================
 # Sim Start 
 #======================================================================================================================================
-t = 0
-while t < V:
-    # Update Values
-    C1 += changeInAmmonia(t)
-    C2 += changeInOxygen(t)
-    C3 += changeInNitrite(t)
-    C4 += changeInNitrate(t)
-    # Append Values to Concetration Arrays
-    dC1.append(C1-C1i)
-    #dC2.append(C2-C2i)
-    dC3.append(C3-C3i)
-    dC4.append(C4-C4i)
-    # Update Time
-    t += 1
-    dT.append(t)
+print("================================================================================================================================")
+print("\n\n")
+print("                              Agent-Based Continuous-Time Simulation of Aquaculture Systems                                     ")
+print("                           Written By: Alex Puskaric, Devon Godde, Elijah Muzzi, Jacob Sinclair                                 ") 
+print("\n")
+print("================================================================================================================================")
+print("\n\nStarting Simulation...\n\n")
+t = 0       # Sets intial time
+dt = 1     # Sets timestep in seconds
+alivebaramount = int (V/dt) 
+
+# Make fish objects
+#tilapia1 = fish('Tilapia',0.0000069,0.0000104,0.0000173,0,0.02,5)
+
+
+while numV >= 0:
+    with alive_bar(alivebaramount) as bar:
+        while t < V:
+            # Update Values
+            C1 += changeInAmmonia(t)
+            C2 += changeInOxygen(t)
+            C3 += changeInNitrite(t)
+            C4 += changeInNitrate(t)
+            # Append Values to Concetration Arrays
+            dC1.append(C1-C1i)
+            #dC2.append(C2-C2i)
+            dC3.append(C3-C3i)
+            dC4.append(C4-C4i)
+            # Fish action
+            #status, amount = tilapia1.action()
+            #if status.equals('Eating'):
+               # amount #amount eaten
+            #elif status.equals('Peeing'):
+             #  C1 += amount
+            #elif status.equals('Pooping'):
+            #   C1 += amount
+            # Update Time
+            t += dt
+            bar()
+            dT.append(t)
+    numV-=1
+    t=0
+    # Clear all but last value of list before continuing plotting new lists on new plots
+
+
 #======================================================================================================================================
 # Plotting Start
 #======================================================================================================================================
@@ -146,4 +184,3 @@ ax.set_ylabel('Change in Concentration')
 
 # Display the plot
 plt.show() 
-  
