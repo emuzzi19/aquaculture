@@ -37,6 +37,10 @@ def p1(t):
   step3 = Wishbone * step2
   return step3
 
+# Initial p values needed for plant calculations
+p2i = pow(10,-4)
+p4i = (2* pow(10,-17))
+
 p2 = pow(10,-4)
 p3 = 0
 p4 = (2* pow(10,-17))
@@ -112,8 +116,10 @@ def changeInNitrate(t):    # Change of Nitrate concentration over time
   return dC4
 
 
+
    
-   
+# Plant Biomass List
+plantPopulation = [0.5, (0.00000019*1)] # Normalized Plant Biomass, Growth Rate per Second
 
 #======================================================================================================================================
 # Sim Start 
@@ -133,9 +139,23 @@ alivebaramount = int (V/dt)
 #tilapia1 = fish('Tilapia',0.0000069,0.0000104,0.0000173,0,0.02,5)
 
 
+
 while numV >= 0:
     with alive_bar(alivebaramount) as bar:
         while t < V:
+            # If plant biomass is greater than max, set it to max
+            if((plantPopulation[0] + plantPopulation[1]) >= 1):
+                plantPopulation[0] = 1
+            # If plant biomass is at or less than 0, keep it at 0
+            elif(plantPopulation[0] <= 0):
+                plantPopulation[0] = 0
+            # Otherwise, grow
+            elif(plantPopulation[0] > 0):
+                plantPopulation[0] = plantPopulation[0] + plantPopulation[1]
+    
+            p2 = p2i * (0.5 + plantPopulation[0])
+            p4 = p4i * (0.5 + plantPopulation[0])
+
             # Update Values
             C1 += changeInAmmonia(t)
             C2 += changeInOxygen(t)
