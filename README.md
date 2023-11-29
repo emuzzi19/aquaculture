@@ -1,4 +1,4 @@
-# Aquaculture Simulation fish: 	:seedling:
+# Aquaculture Simulation :fish: :seedling:
 
 This is a Continous-Time Simulation of the fluctuation of chemicals in an Aquarium system. The chemicals we are keeping track of in the state of our aquarium are: Ammonium, Nitrite, Nitrate, Nitrogen gas, Disolved Oxygen and pH. Our goal is to predict if an aquarium configuration (Size, Temp, Lighting, Fish, Plants) will be self sufficent, require water changes / feeding or will not support life. 
 
