@@ -12,16 +12,36 @@ This is a Continous-Time Simulation of the fluctuation of chemicals in an Aquari
 - [License](#license)
 
 ## Getting Started
+To use the simulation, download both aquarium.py and fish.py.
+The file aquarium.py is our driver class, carrying out the work of the simulation, 
+while fish.py is the object class which determines the attributes and behaviors of the fish
+in our simulation. **YOU MUST HAVE THE FILES IN THE SAME DIRECTORY FOR IT TO RUN**
 
-[Instructions on how to get a copy of the project up and running on your local machine for development and testing purposes.]
+* Simply run a the python script through your console/terminal or IDE
+  and input your desired parameters.
+* The file will run the simulation and give you the amount of time it will take to complete.
+* You will then be given output in the form of graphs which can be saved to a file if you wish.
 
 ## Prerequisites
 
-[List any software or libraries needed to be installed before using this project.]
+Python
+Python libraries:
+* numpy
+* matplotlib
+* alive_progress
+* PyQt5
 
 ## Installation
 
-[Guide on how to install the project.]
+Install Python here:
+* https://www.python.org/downloads/
+
+To install needed packages we recommend downloading the pip installer, 
+you can follow this tutorial to do so:
+* https://www.geeksforgeeks.org/how-to-install-pip-on-windows/
+
+When you have installed python and pip, you can then install the python libraries. 
+To do so simply go to your console/terminal and enter: pip install packageName
 
 ## Usage
 
