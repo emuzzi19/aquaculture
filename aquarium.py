@@ -19,6 +19,8 @@ from fish import fish
 
 
 
+
+
 # Constants
 Xmin = 0
 Xmin = 0
@@ -92,16 +94,16 @@ def changeInAmmonia(t,C1,C2):
 
 
 def changeInOxygen(t,C1,C2,C3):    # Change of Oxygen concentration over time 
-    result = p2*(1-(q1)*(C2))-mu1(t)*pow(C1,2)*pow(C2,3)-mu2(t)*math.sqrt(C2)*C3
+    result = p2*(1-(q1)*(C2))-mu1(t)*pow(C1,2)*pow(C2,3)-mu2(t)*np.sqrt(C2)*C3
     return result
   
 def changeInNitrite(t,C1,C2,C3):    # Change of Nitrite concentration over time 
-    result = mu1(t)*(pow(C1,2))*(pow(C2,3))-mu2(t)*math.sqrt(C2)*C3-p3*C3
+    result = mu1(t)*(pow(C1,2))*(pow(C2,3))-mu2(t)*np.sqrt(C2)*C3-p3*C3
     return result
 
 def changeInNitrate(t,C2,C3,C4):    # Change of Nitrate concentration over time 
   dt = 1
-  dC4 = dt*(mu2(t)* math.sqrt(C2)*C3-(p4*C4))
+  dC4 = dt*(mu2(t)* np.sqrt(C2)*C3-(p4*C4))
   return dC4
 
 
@@ -245,7 +247,7 @@ def plot_results(dC1, dC3, dC4, dT, number_of_fish, fish_population, production,
     tankStatus = (f"\n\n\nAquaculture Tank Stats\n"
                   f"________________________________________\n\n\n"
                   f"Tank Size: {tank_size} Liters\n\n"
-                  f"The tank will grow harvestable fish: {selfSufficient}\n\n"
+                  f"The Tank will Grow Harvestable Fish: {selfSufficient}\n\n"
                   f"Amount of Fish Produced (g): {formatted_production}\n\n"
                   f"Time Elapsed in Week(s): {formatted_weeks}\n\n"
                   f"Plant Biomass: {plantBiomass}\n\n")
@@ -319,7 +321,7 @@ class AquariumSimulatorGUI(QWidget):
          # Duration of Simulation Input with Unit Dropdown
         durationLayout = QHBoxLayout()  # Horizontal layout for duration input and unit dropdown
         self.durationInput = QLineEdit(self)
-        self.durationInput.setFixedWidth(200)  # Set the width to half of the GUI width
+        self.durationInput.setFixedWidth(int (y/2))  # Set the width to half of the GUI width
         durationLayout.addWidget(QLabel('Duration of Simulation:'))
         durationLayout.addWidget(self.durationInput)
 
