@@ -172,7 +172,7 @@ def simulation(tank_size, number_of_fish, type_of_fish, duration, production, sa
                 fish.grow(t)
                 if not fish.checkDeath(C1,C3):
                     if save_log:
-                        log.append(f"{fish.name} has died at {t} seconds\n")
+                        log.append(f"{fish.name} has died at {t} seconds at C1 (mg/L) {C1/tank_size} & C3 (mg/L) {C3/tank_size}\n")
                     selfSufficient = False
                     fish_population.remove(fish)
                     dead_fish.append(fish)
@@ -288,27 +288,41 @@ def plot_results(dC1, dC3, dC4, dT, number_of_fish, fish_population, production,
 class AquariumSimulatorGUI(QWidget):
     def __init__(self):
         super().__init__()
-        x = 800
-        y = 600
+        x = 600
+        y = 400
         
         # GUI layout
         self.setWindowTitle('Aquaculture Simulation')
         self.setFixedSize(x, y)  # Width, Height in pixels
         layout = QVBoxLayout()
+        header = QLabel('<h1 style="color: blue; text-align: center; margin-top: -10px; margin-bottom: -10px; line-height: 1">Aquaculture Simulation</h1>')
+        layout.addWidget(header)
 
         # Tank Size Input
+        volumeLayout = QHBoxLayout()  # Horizontal layout for volume input and unit dropdown
         self.tankSizeInput = QLineEdit(self)
-        layout.addWidget(QLabel('Tank Size (Liters):'))
-        layout.addWidget(self.tankSizeInput)
+        volumeLayout.addWidget(QLabel('Tank Size:'))
+        volumeLayout.addWidget(self.tankSizeInput)
+        self.volUnitDropdown = QComboBox(self)
+        self.volUnitDropdown.setFixedWidth(int (y/2))
+        self.tankSizeInput.setFixedWidth(int (y/2))  # Set the width to half of the GUI width
+        self.volUnitDropdown.addItems(["Liters", "Gallons"])
+        volumeLayout.addWidget(self.volUnitDropdown)
+        layout.addLayout(volumeLayout)  # Add the horizontal layout to the main layout
 
         # Number of Fish Input
+        numFishLayout = QHBoxLayout()  # Horizontal layout for number of fish input 
         self.numberOfFishInput = QLineEdit(self)
-        layout.addWidget(QLabel('Number of Fish:'))
-        layout.addWidget(self.numberOfFishInput)
+        numFishLayout.addWidget(QLabel('Number of Fish:'))
+        #self.numberOfFishInput.setFixedWidth(int (y/2))
+        numFishLayout.addWidget(self.numberOfFishInput)
+        layout.addLayout(numFishLayout)  # Add the horizontal layout to the main layout
+       
 
         # Creating a QComboBox
+        sizeFishLayout = QHBoxLayout()  # Horizontal layout for size of fish input 
         self.dropdown = QComboBox()
-        layout.addWidget(QLabel('Size of Fish:'))
+        sizeFishLayout.addWidget(QLabel('Size of Fish:'))
         self.dropdown.addItem('Fry- 1 gram')
         self.dropdown.addItem('Juveniles- 8 to 9 grams')
         self.dropdown.addItem('Adults- 220 to 440 grams (1 to 2 pounds)')
@@ -316,7 +330,8 @@ class AquariumSimulatorGUI(QWidget):
         # Connecting a function to handle the item selection change
         self.dropdown.currentIndexChanged.connect(self.on_selection_change)
 
-        layout.addWidget(self.dropdown)
+        sizeFishLayout.addWidget(self.dropdown)
+        layout.addLayout(sizeFishLayout)  # Add the horizontal layout to the main layout
 
          # Duration of Simulation Input with Unit Dropdown
         durationLayout = QHBoxLayout()  # Horizontal layout for duration input and unit dropdown
@@ -331,6 +346,8 @@ class AquariumSimulatorGUI(QWidget):
         durationLayout.addWidget(self.unitDropdown)
 
         layout.addLayout(durationLayout)  # Add the horizontal layout to the main layout
+       
+
 
         # Other input fields and buttons...
         
@@ -367,6 +384,7 @@ class AquariumSimulatorGUI(QWidget):
         number_of_fish = int (self.numberOfFishInput.text())
         fish_weights = 0
         timeRatio = 1
+        volumeRatio = 1
 
         # choosing the starting weight of the fish based on the value the user selects
         if 'Fry- 1 gram' in self.dropdown.currentText():
@@ -382,10 +400,16 @@ class AquariumSimulatorGUI(QWidget):
             timeRatio = 604800  # Seconds in a week
         elif 'Months' in self.unitDropdown.currentText():
             timeRatio = 2630000  # Approximate seconds in a month
+            
+        if 'Liters' in self.volUnitDropdown.currentText():
+            volumeRatio = 1
+        elif 'Gallons' in self.volUnitDropdown.currentText():
+            volumeRatio = 0.264172  # Gallons in a Liter
 
         duration = int(self.durationInput.text()) * timeRatio
         save_log = self.saveLogCheckbox.isChecked()
         production = 0
+        tank_size = int (tank_size * volumeRatio)
         
         fish_population = [fish(f'Tilapia{x}', 0.0000069, 0.0000104, 0.0000173, 0, 0.02, fish_weights,tank_size) for x in range(number_of_fish)]
     
