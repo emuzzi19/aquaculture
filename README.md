@@ -17,7 +17,7 @@ The file aquarium.py is our driver class, carrying out the work of the simulatio
 while fish.py is the object class which determines the attributes and behaviors of the fish
 in our simulation. **YOU MUST HAVE THE FILES IN THE SAME DIRECTORY FOR IT TO RUN**
 
-* Simply run a the aquarium.py through your console/terminal or IDE
+* Simply run the aquarium.py file through your console/terminal or IDE
   and input your desired parameters. (type python aquarium.py if using console or terminal)
 * The file will run the simulation and give you the amount of time it will take to complete.
 * You will then be given output in the form of graphs which can be saved to a file if you wish.
