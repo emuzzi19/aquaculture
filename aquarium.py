@@ -37,17 +37,17 @@ numV = 1        # Amount of times period of V is simulated
 tmin = 0
 
 
-def p1(t):
+def p1(t):  # function for ammonia production
   step1 = np.arctan(t0(t))             
   step2 = step1 - np.arctan(t0(0))              
   step3 = Wishbone * step2
   return step3
 
-p2 = pow(10,-4)
-p3 = 0
-p4 = (2* pow(10,-17))
-q1 = (1/5)
-q2 = (1/8.5)
+p2 = pow(10,-4) # oxygen production within the aquarium
+p3 = 0 # p3 nitrite consumtion 
+p4 = (2* pow(10,-17)) # nitrate consumption 
+q1 = (1/5) # constant limiting coefficient for ammonia growth
+q2 = (1/8.5) # limiting coefficient for oxygen growth 
 
 # inital p2 and p4 for calculation
 p2i = p2
@@ -64,15 +64,16 @@ def convert_seconds_to_weeks(seconds):
         weeks = t/(604800)  # 604800 seconds in a week
         dtWeeks.append(weeks)
     return dtWeeks  
-# Mu s
-def mu1(t):
+# Mu s, which represent efficiencies of different bacteria 
+def mu1(t): #nitrosominous 
   result = Wishbone1*(np.arctan([t1(t)])-np.arctan([t1(tmin)]))
   return result
   
-def mu2(t):
+def mu2(t): # nitrobacter 
   result = Wishbone2*(np.arctan(t2(t))-np.arctan(t2(tmin)))
   return result
-  
+
+# t functions, act as constants in our equation, were described by paper  
 def t0(t):
     return(((Xmax - Xmin) / V)*t + Xmin)
 
@@ -90,8 +91,6 @@ def changeInAmmonia(t,C1,C2):
   step2 = step1 - mu1(t) * ((C1 * C1) * (C2 * C2 * C2))
   concentrationChange = step2
   return concentrationChange
-
-
 
 def changeInOxygen(t,C1,C2,C3):    # Change of Oxygen concentration over time 
     result = p2*(1-(q1)*(C2))-mu1(t)*pow(C1,2)*pow(C2,3)-mu2(t)*np.sqrt(C2)*C3
@@ -426,3 +425,4 @@ if __name__ == "__main__":
     window = AquariumSimulatorGUI()
     window.show()
     sys.exit(app.exec_())
+
