@@ -46,15 +46,11 @@ To do so simply go to your console/terminal and enter: pip install packageName
 
 ## Usage
 
-[Provide examples and explanations of how to use the project.]
+```
+python aquarium.py
+```
 
-## Contributing
 
-[Explain how others can contribute to the project. Include guidelines for pull requests and code of conduct if applicable.]
-
-## License 
-
-[Include the type of license the project is under. For example, MIT License, Apache License 2.0, etc.]
 
 
 
