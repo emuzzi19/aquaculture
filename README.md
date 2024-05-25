@@ -8,8 +8,6 @@ This is a Continuous-Time Simulation of the fluctuation of chemicals in an Aquar
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Getting Started
 To use the simulation, download both aquarium.py and fish.py.
